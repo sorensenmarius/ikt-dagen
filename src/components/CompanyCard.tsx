@@ -9,7 +9,7 @@ interface ICompanyCardProps {
 const CompanyCard: FC<ICompanyCardProps> = ({ company }) => {
   return (
     <Paper>
-      <Avatar src={company.getLogoLink()} />
+      <Avatar src={company.logo} />
       <Typography variant="h3">{company.name}</Typography>
     </Paper>
   );

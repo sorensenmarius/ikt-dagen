@@ -1,4 +1,4 @@
-import { ContactPerson } from "./ContactPerson";
+import { translateDriveImageLink } from "../utils/sheetUtils";
 
 export default class Company {
   constructor(
@@ -6,31 +6,16 @@ export default class Company {
     public address: string,
     public email: string,
     public website: string,
-    public logo: string,
-    public contactPerson: ContactPerson
+    public logo: string
   ) {}
 
-  getLogoLink(): string {
-    return "/images/" + this.logo;
-  }
-
-  static fromInterface(c: ICompany): Company {
+  static fromSheets(info: string[]): Company {
     return new Company(
-      c.name,
-      c.address,
-      c.email,
-      c.website,
-      c.logo,
-      c.contactPerson
+      info[0],
+      info[1],
+      info[2],
+      info[3],
+      translateDriveImageLink(info[4])
     );
   }
-}
-
-export interface ICompany {
-  name: string;
-  address: string;
-  email: string;
-  website: string;
-  logo: string;
-  contactPerson: ContactPerson;
 }

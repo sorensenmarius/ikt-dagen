@@ -7,7 +7,7 @@ enum JobType {
 
 export default JobType;
 
-export const getNorwegienJobType = (jobType: JobType): string => {
+export const getNorwegianJobType = (jobType: JobType): string => {
   return {
     1: "Sommerjobb",
     2: "Deltid",

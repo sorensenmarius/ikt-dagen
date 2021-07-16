@@ -1,5 +1,5 @@
 import { Chip, makeStyles } from "@material-ui/core";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import JobType, { getNorwegianJobType } from "../types/enums/JobType";
 import Level, { getNorwegianLevelName } from "../types/enums/Level";
 import mapEnum from "../utils/mapEnum";
@@ -21,6 +21,9 @@ const useStyles = makeStyles(() => ({
   },
   active: {
     backgroundColor: "red",
+    "&:hover, &:focus": {
+      backgroundColor: "red",
+    },
   },
 }));
 
@@ -36,7 +39,8 @@ const CompanyFilter: FC<ICompanyFilterProps> = ({
     if (jobTypes.includes(jobType)) {
       setJobTypes(jobTypes.filter((jt) => jt !== jobType));
     } else {
-      setJobTypes([...jobTypes, jobType]);
+      const newJobTypes = [...jobTypes, jobType];
+      setJobTypes(newJobTypes);
     }
   };
 
@@ -44,7 +48,8 @@ const CompanyFilter: FC<ICompanyFilterProps> = ({
     if (levels.includes(level)) {
       setLevels(levels.filter((l) => l !== level));
     } else {
-      setLevels([...levels, level]);
+      const newLevels = [...levels, level];
+      setLevels(newLevels);
     }
   };
 
@@ -56,6 +61,7 @@ const CompanyFilter: FC<ICompanyFilterProps> = ({
             label={getNorwegianLevelName(key) + " klasse"}
             className={levels.includes(key) ? classes.active : ""}
             onClick={() => handleLevelChange(key)}
+            key={key}
           />
         ))}
       </div>
@@ -65,6 +71,7 @@ const CompanyFilter: FC<ICompanyFilterProps> = ({
             label={getNorwegianJobType(key)}
             className={jobTypes.includes(key) ? classes.active : ""}
             onClick={() => handleJobTypeChange(key)}
+            key={key}
           />
         ))}
       </div>

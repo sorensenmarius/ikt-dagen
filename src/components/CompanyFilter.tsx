@@ -1,5 +1,5 @@
 import { Chip, makeStyles } from "@material-ui/core";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import JobType, { getNorwegianJobType } from "../types/enums/JobType";
 import Level, { getNorwegianLevelName } from "../types/enums/Level";
 import mapEnum from "../utils/mapEnum";

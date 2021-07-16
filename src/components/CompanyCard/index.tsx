@@ -11,15 +11,18 @@ import { FC } from "react";
 import Company from "../../types/Company";
 import { getNorwegianJobType } from "../../types/enums/JobType";
 import { getNorwegianLevelName } from "../../types/enums/Level";
+import useStyles from "./style";
 
 interface ICompanyCardProps {
   company: Company;
 }
 
 const CompanyCard: FC<ICompanyCardProps> = ({ company }) => {
+  const classes = useStyles();
+
   return (
     <Paper>
-      <Avatar src={company.logo} />
+      <Avatar src={company.logo} className={classes.avatar} />
       <Typography variant="h3">{company.name}</Typography>
       <Button
         variant="text"

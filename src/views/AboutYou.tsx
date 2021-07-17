@@ -1,4 +1,5 @@
 import {
+  Button,
   Checkbox,
   FormControlLabel,
   makeStyles,
@@ -7,8 +8,15 @@ import {
   Typography,
 } from "@material-ui/core";
 import { ChangeEvent, useState } from "react";
+import { useHistory } from "react-router-dom";
 import JobType, { getNorwegianJobType } from "../types/enums/JobType";
 import Level, { getNorwegianLevelName } from "../types/enums/Level";
+import {
+  BachelorStudyProgram,
+  getNorwegianBachelorStudyProgram,
+  getNorwegianMasterStudyProgram,
+  MasterStudyProgram,
+} from "../types/enums/StudyProgram";
 import mapEnum from "../utils/mapEnum";
 
 const useStyles = makeStyles(() => ({
@@ -25,11 +33,17 @@ const useStyles = makeStyles(() => ({
     flexWrap: "wrap",
     justifyContent: "center",
   },
+  activeButton: {
+    backgroundColor: "blue",
+  },
 }));
 
 const AboutYou = () => {
   const [level, setLevel] = useState(0);
   const [jobTypes, setJobTypes] = useState<number[]>([]);
+  const [studyProgram, setStudyProgram] = useState("bachelor");
+  const [bachelor, setBachelor] = useState(0);
+  const [master, setMaster] = useState(0);
 
   const classes = useStyles();
 
@@ -44,6 +58,17 @@ const AboutYou = () => {
     } else {
       setJobTypes([...jobTypes, jobType]);
     }
+  };
+
+  const history = useHistory();
+  const rerouteToCompanies = () => {
+    history.push("/companies", {
+      level,
+      jobTypes,
+      studyProgram,
+      bachelor,
+      master,
+    });
   };
 
   return (
@@ -79,6 +104,55 @@ const AboutYou = () => {
           />
         ))}
       </div>
+      <Typography variant="h4">Hvilket studie går du på?</Typography>
+      <div>
+        <Button
+          variant="contained"
+          className={studyProgram === "bachelor" ? classes.activeButton : ""}
+          onClick={() => setStudyProgram("bachelor")}
+        >
+          Bachelor
+        </Button>
+        <Button
+          variant="contained"
+          className={studyProgram === "master" ? classes.activeButton : ""}
+          onClick={() => setStudyProgram("master")}
+        >
+          Master
+        </Button>
+      </div>
+      {studyProgram === "bachelor" ? (
+        <RadioGroup
+          value={bachelor}
+          onChange={(e) => setBachelor(parseInt(e.target.value))}
+          className={classes.flexRow}
+        >
+          {mapEnum(BachelorStudyProgram, (l: BachelorStudyProgram) => (
+            <FormControlLabel
+              value={l}
+              control={<Radio />}
+              label={getNorwegianBachelorStudyProgram(l)}
+            />
+          ))}
+        </RadioGroup>
+      ) : (
+        <RadioGroup
+          value={master}
+          onChange={(e) => setMaster(parseInt(e.target.value))}
+          className={classes.flexRow}
+        >
+          {mapEnum(MasterStudyProgram, (l: MasterStudyProgram) => (
+            <FormControlLabel
+              value={l}
+              control={<Radio />}
+              label={getNorwegianMasterStudyProgram(l)}
+            />
+          ))}
+        </RadioGroup>
+      )}
+      <Button variant="contained" onClick={rerouteToCompanies}>
+        Se bedrifter
+      </Button>
     </div>
   );
 };

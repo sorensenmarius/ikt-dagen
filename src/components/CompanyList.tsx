@@ -4,6 +4,10 @@ import { Context } from "../services/DataContext";
 import Company from "../types/Company";
 import JobType from "../types/enums/JobType";
 import Level from "../types/enums/Level";
+import {
+  BachelorStudyProgram,
+  MasterStudyProgram,
+} from "../types/enums/StudyProgram";
 import CompanyCard from "./CompanyCard";
 import CompanyFilter from "./CompanyFilter";
 
@@ -15,11 +19,25 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CompanyList: FC = () => {
+interface ICompanyListProps {
+  level?: Level;
+  jobTypesProp?: JobType[];
+  studyProgram?: string;
+  master?: MasterStudyProgram;
+  bachelor?: BachelorStudyProgram;
+}
+
+const CompanyList: FC<ICompanyListProps> = ({
+  level,
+  jobTypesProp,
+  studyProgram,
+  master,
+  bachelor,
+}) => {
   const { companies } = useContext(Context);
 
-  const [jobTypes, setJobTypes] = useState<JobType[]>([]);
-  const [levels, setLevels] = useState<Level[]>([]);
+  const [jobTypes, setJobTypes] = useState<JobType[]>(jobTypesProp ?? []);
+  const [levels, setLevels] = useState<Level[]>(level ? [level] : []);
 
   const classes = useStyles();
 

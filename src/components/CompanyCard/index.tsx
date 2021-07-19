@@ -11,6 +11,10 @@ import { FC } from "react";
 import Company from "../../types/Company";
 import { getNorwegianJobType } from "../../types/enums/JobType";
 import { getNorwegianLevelName } from "../../types/enums/Level";
+import {
+  getNorwegianBachelorStudyProgram,
+  getNorwegianMasterStudyProgram,
+} from "../../types/enums/StudyProgram";
 import useStyles from "./style";
 
 interface ICompanyCardProps {
@@ -41,6 +45,12 @@ const CompanyCard: FC<ICompanyCardProps> = ({ company }) => {
       ))}
       {company.levels.map((level) => (
         <Chip label={getNorwegianLevelName(level) + " klasse"} key={level} />
+      ))}
+      {company.masterStudyPrograms.map((p) => (
+        <Chip label={getNorwegianMasterStudyProgram(p)} key={p} />
+      ))}
+      {company.bachelorStudyPrograms.map((p) => (
+        <Chip label={getNorwegianBachelorStudyProgram(p)} key={p} />
       ))}
     </Paper>
   );

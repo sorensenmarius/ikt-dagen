@@ -20,24 +20,32 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface ICompanyListProps {
+  filterState?: ICompanyFilterState;
+}
+
+export interface ICompanyFilterState {
   level?: Level;
-  jobTypesProp?: JobType[];
+  jobTypes?: JobType[];
   studyProgram?: string;
   master?: MasterStudyProgram;
   bachelor?: BachelorStudyProgram;
 }
 
-const CompanyList: FC<ICompanyListProps> = ({
-  level,
-  jobTypesProp,
-  studyProgram,
-  master,
-  bachelor,
-}) => {
+const CompanyList: FC<ICompanyListProps> = ({ filterState }) => {
   const { companies } = useContext(Context);
 
-  const [jobTypes, setJobTypes] = useState<JobType[]>(jobTypesProp ?? []);
-  const [levels, setLevels] = useState<Level[]>(level ? [level] : []);
+  const [jobTypes, setJobTypes] = useState<JobType[]>(
+    filterState?.jobTypes ?? []
+  );
+  const [levels, setLevels] = useState<Level[]>(
+    filterState?.level ? [filterState.level] : []
+  );
+  const [masters, setMasters] = useState<MasterStudyProgram[]>(
+    filterState?.master ? [filterState.master] : []
+  );
+  const [bachelors, setBachelors] = useState<BachelorStudyProgram[]>(
+    filterState?.bachelor ? [filterState.bachelor] : []
+  );
 
   const classes = useStyles();
 
@@ -68,6 +76,10 @@ const CompanyList: FC<ICompanyListProps> = ({
         setJobTypes={setJobTypes}
         levels={levels}
         setLevels={setLevels}
+        masters={masters}
+        setMasters={setMasters}
+        bachelors={bachelors}
+        setBachelors={setBachelors}
       />
       <List className={classes.root}>
         {filteredCompanies.map((company) => (

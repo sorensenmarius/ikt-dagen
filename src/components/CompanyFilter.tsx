@@ -2,6 +2,12 @@ import { Chip, makeStyles } from "@material-ui/core";
 import { FC } from "react";
 import JobType, { getNorwegianJobType } from "../types/enums/JobType";
 import Level, { getNorwegianLevelName } from "../types/enums/Level";
+import {
+  BachelorStudyProgram,
+  getNorwegianBachelorStudyProgram,
+  getNorwegianMasterStudyProgram,
+  MasterStudyProgram,
+} from "../types/enums/StudyProgram";
 import mapEnum from "../utils/mapEnum";
 
 interface ICompanyFilterProps {
@@ -9,6 +15,10 @@ interface ICompanyFilterProps {
   setJobTypes: (jobTypes: JobType[]) => void;
   levels: Level[];
   setLevels: (levels: Level[]) => void;
+  masters: MasterStudyProgram[];
+  setMasters: (masters: MasterStudyProgram[]) => void;
+  bachelors: BachelorStudyProgram[];
+  setBachelors: (bachelors: BachelorStudyProgram[]) => void;
 }
 
 const useStyles = makeStyles(() => ({
@@ -32,9 +42,14 @@ const CompanyFilter: FC<ICompanyFilterProps> = ({
   setJobTypes,
   levels,
   setLevels,
+  masters,
+  setMasters,
+  bachelors,
+  setBachelors,
 }) => {
   const classes = useStyles();
 
+  // TODO - Make these general somehow. Probably some sneaky generics
   const handleJobTypeChange = (jobType: JobType) => {
     if (jobTypes.includes(jobType)) {
       setJobTypes(jobTypes.filter((jt) => jt !== jobType));
@@ -50,6 +65,24 @@ const CompanyFilter: FC<ICompanyFilterProps> = ({
     } else {
       const newLevels = [...levels, level];
       setLevels(newLevels);
+    }
+  };
+
+  const handleMastersChange = (master: MasterStudyProgram) => {
+    if (masters.includes(master)) {
+      setMasters(masters.filter((l) => l !== master));
+    } else {
+      const newMasters = [...masters, master];
+      setMasters(newMasters);
+    }
+  };
+
+  const handleBachelorsChange = (bachelor: BachelorStudyProgram) => {
+    if (bachelors.includes(bachelor)) {
+      setBachelors(bachelors.filter((l) => l !== bachelor));
+    } else {
+      const newBachelors = [...bachelors, bachelor];
+      setBachelors(newBachelors);
     }
   };
 
@@ -71,6 +104,24 @@ const CompanyFilter: FC<ICompanyFilterProps> = ({
             label={getNorwegianJobType(key)}
             className={jobTypes.includes(key) ? classes.active : ""}
             onClick={() => handleJobTypeChange(key)}
+            key={key}
+          />
+        ))}
+      </div>
+      <div>
+        {mapEnum(MasterStudyProgram, (key: MasterStudyProgram) => (
+          <Chip
+            label={getNorwegianMasterStudyProgram(key)}
+            className={masters.includes(key) ? classes.active : ""}
+            onClick={() => handleMastersChange(key)}
+            key={key}
+          />
+        ))}
+        {mapEnum(BachelorStudyProgram, (key: BachelorStudyProgram) => (
+          <Chip
+            label={getNorwegianBachelorStudyProgram(key)}
+            className={bachelors.includes(key) ? classes.active : ""}
+            onClick={() => handleBachelorsChange(key)}
             key={key}
           />
         ))}

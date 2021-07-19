@@ -1,11 +1,14 @@
 import {
   formatWebsiteLink,
+  parseStringToBachelors,
   parseStringToJobTypes,
   parseStringToLevels,
+  parseStringToMasters,
   translateDriveImageLink,
 } from "../utils/sheetUtils";
 import JobType from "./enums/JobType";
 import Level from "./enums/Level";
+import { BachelorStudyProgram, MasterStudyProgram } from "./enums/StudyProgram";
 
 export default class Company {
   constructor(
@@ -15,7 +18,9 @@ export default class Company {
     public website: string,
     public logo: string,
     public jobTypes: JobType[] = [],
-    public levels: Level[] = []
+    public levels: Level[] = [],
+    public bachelorStudyPrograms: BachelorStudyProgram[] = [],
+    public masterStudyPrograms: MasterStudyProgram[] = []
   ) {}
 
   static fromSheets(info: string[]): Company {
@@ -26,7 +31,9 @@ export default class Company {
       formatWebsiteLink(info[3]),
       translateDriveImageLink(info[4]),
       parseStringToJobTypes(info[5]),
-      parseStringToLevels(info[6])
+      parseStringToLevels(info[6]),
+      parseStringToBachelors(info[7]),
+      parseStringToMasters(info[8])
     );
   }
 }

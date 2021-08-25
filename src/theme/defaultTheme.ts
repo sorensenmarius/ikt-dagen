@@ -2,7 +2,7 @@ import { createTheme } from "@material-ui/core";
 
 const defaultTheme = createTheme({
   typography: {
-    fontFamily: "Lato, Roboto",
+    fontFamily: "Lato, Roboto, Arial",
   },
   palette: {
     primary: {

@@ -1,0 +1,31 @@
+on:
+  push:
+    branches: [publish]
+
+name: Build and Publish Front End
+jobs:
+  FTP-Deploy-Action:
+    name: FTP-Deploy-Action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.1.0
+        with:
+          fetch-depth: 2
+
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+
+      - name: Build Project
+        run: |
+          yarn
+          yarn build --if-present
+
+      - name: FTP-Deploy-Action
+        uses: SamKirkland/FTP-Deploy-Action@3.1.1
+        with:
+          ftp-server: ftp://ftp.domeneshop.no/ikt-dagen
+          ftp-username: s0rensen
+          ftp-password: ${{ secrets.S0RENSEN_FTP_PASSWORD }}
+          local-dir: build # This folder is NOT going to upload by default unless you add it to .git-ftp-include

@@ -32,7 +32,9 @@ const DataContext: FC = ({ children }) => {
     );
 
   const defaultData: IContext = {
-    companies: data?.values.map(Company.fromSheets),
+    companies: data?.values
+      .filter((d) => d.length === 13)
+      .map(Company.fromSheets),
   };
 
   return <Context.Provider value={defaultData}>{children}</Context.Provider>;

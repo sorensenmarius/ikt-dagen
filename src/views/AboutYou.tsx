@@ -1,6 +1,7 @@
 import {
   Button,
   Checkbox,
+  Divider,
   FormControlLabel,
   makeStyles,
   Radio,
@@ -10,7 +11,6 @@ import {
 import { ChangeEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
 import JobType, { getNorwegianJobType } from "../types/enums/JobType";
-import Level, { getNorwegianLevelName } from "../types/enums/Level";
 import {
   BachelorStudyProgram,
   getNorwegianBachelorStudyProgram,
@@ -19,22 +19,37 @@ import {
 } from "../types/enums/StudyProgram";
 import mapEnum from "../utils/mapEnum";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(({ palette }) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  flexRow: {
-    display: "flex",
-    flexDirection: "row",
-    gap: "12px",
-    flexWrap: "wrap",
-    justifyContent: "center",
+    padding: "0 15px",
+    gap: "14px",
   },
   activeButton: {
-    backgroundColor: "blue",
+    backgroundColor: palette.secondary.main,
+  },
+  buttonWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: "5px",
+  },
+  checkboxWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "10px",
+    "& .MuiCheckbox-root": {
+      padding: "0 9px",
+    },
+  },
+  bachelorMasterButtonWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "20px",
+  },
+  flexGrow: {
+    flexGrow: 1,
   },
 }));
 
@@ -73,49 +88,61 @@ const AboutYou = () => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h4">Hvilket trinn går du i?</Typography>
-      <RadioGroup
-        value={level}
-        onChange={(e) => setLevel(parseInt(e.target.value))}
-        className={classes.flexRow}
-      >
-        {mapEnum(Level, (l: Level) => (
-          <FormControlLabel
-            value={l}
-            control={<Radio />}
-            label={getNorwegianLevelName(l)}
-          />
-        ))}
-      </RadioGroup>
-      <Typography variant="h4">
-        Hvilke typer jobb er du interessert i?
-      </Typography>
-      <div className={classes.flexRow}>
-        {mapEnum(JobType, (jt: JobType) => (
-          <FormControlLabel
-            control={
-              <Checkbox
-                value={jt}
-                checked={jobTypes.includes(jt)}
-                onChange={handleJobTypeChange}
-              />
-            }
-            label={getNorwegianJobType(jt)}
-          />
-        ))}
-      </div>
-      <Typography variant="h4">Hvilket studie går du på?</Typography>
       <div>
+        <Typography variant="h6">Hvilket trinn går du i?</Typography>
+        <div className={classes.buttonWrapper}>
+          {[1, 2, 3, 4, 5].map((l) => (
+            <Button
+              onClick={() => setLevel(l)}
+              key={l}
+              className={`${classes.flexGrow} ${
+                level === l ? classes.activeButton : ""
+              }`}
+            >
+              {l}
+            </Button>
+          ))}
+        </div>
+      </div>
+      <Divider />
+      <div>
+        <Typography variant="h6">Jobb interesser?</Typography>
+        <div className={classes.checkboxWrapper}>
+          {mapEnum(JobType, (jt: JobType) => (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  value={jt}
+                  checked={jobTypes.includes(jt)}
+                  onChange={handleJobTypeChange}
+                />
+              }
+              label={
+                <Typography variant="body1">
+                  {getNorwegianJobType(jt)}
+                </Typography>
+              }
+            />
+          ))}
+        </div>
+      </div>
+      <Divider />
+      <Typography variant="h6">Hvilket studie går du på?</Typography>
+      <div className={classes.bachelorMasterButtonWrapper}>
         <Button
           variant="contained"
-          className={studyProgram === "bachelor" ? classes.activeButton : ""}
+          className={`${classes.flexGrow} ${
+            studyProgram === "bachelor" ? classes.activeButton : ""
+          }`}
           onClick={() => setStudyProgram("bachelor")}
         >
           Bachelor
         </Button>
         <Button
           variant="contained"
-          className={studyProgram === "master" ? classes.activeButton : ""}
+          className={`${classes.flexGrow} ${
+            studyProgram === "master" ? classes.activeButton : ""
+          }`}
           onClick={() => setStudyProgram("master")}
         >
           Master
@@ -125,7 +152,6 @@ const AboutYou = () => {
         <RadioGroup
           value={bachelor}
           onChange={(e) => setBachelor(parseInt(e.target.value))}
-          className={classes.flexRow}
         >
           {mapEnum(BachelorStudyProgram, (l: BachelorStudyProgram) => (
             <FormControlLabel
@@ -139,7 +165,6 @@ const AboutYou = () => {
         <RadioGroup
           value={master}
           onChange={(e) => setMaster(parseInt(e.target.value))}
-          className={classes.flexRow}
         >
           {mapEnum(MasterStudyProgram, (l: MasterStudyProgram) => (
             <FormControlLabel
@@ -150,8 +175,8 @@ const AboutYou = () => {
           ))}
         </RadioGroup>
       )}
-      <Button variant="contained" onClick={rerouteToCompanies}>
-        Se bedrifter
+      <Button color="primary" onClick={rerouteToCompanies}>
+        Finn bedrifter
       </Button>
     </div>
   );

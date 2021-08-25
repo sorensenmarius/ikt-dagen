@@ -1,4 +1,5 @@
-import { Button, makeStyles } from "@material-ui/core";
+import { Card, CardContent, makeStyles, Typography } from "@material-ui/core";
+import { BusinessCenterRounded, SearchRounded } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
@@ -6,11 +7,25 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center",
+    padding: "20px 40px",
+    gap: "60px",
   },
-  logo: {
-    maxWidth: "400px",
-    margin: "50px 0",
+  cardWrappers: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "14px",
+  },
+  cards: {
+    boxShadow: "0px 4px 20px rgba(199, 199, 199, 0.5)",
+    borderRadius: "10px",
+    "&:hover": {
+      boxShadow: "0px 4px 20px rgba(150, 150, 150, 1)",
+    },
+  },
+  icons: {
+    fontSize: "60px",
+    color: "#C95144",
+    marginBottom: "15px",
   },
 }));
 
@@ -21,17 +36,34 @@ const LandingPage = () => {
 
   return (
     <div className={classes.root}>
-      <img
-        src="/images/IKTDagen.jpg"
-        alt="IKT Dagen logo"
-        className={classes.logo}
-      />
-      <Button variant="contained" onClick={() => history.push("/about-you")}>
-        Vis meg bedrifter som passer for meg
-      </Button>
-      <Button variant="text" onClick={() => history.push("/companies")}>
-        Vis meg alle bedrifter
-      </Button>
+      <div className={classes.cardWrappers}>
+        <Typography variant="h5">Finn bedrifter for deg</Typography>
+        <Card
+          className={classes.cards}
+          onClick={() => history.push("/about-you")}
+        >
+          <CardContent>
+            <SearchRounded className={classes.icons} />
+            <Typography variant="h6">
+              Her finner du bedrifter som passer deg
+            </Typography>
+          </CardContent>
+        </Card>
+      </div>
+      <div className={classes.cardWrappers}>
+        <Typography variant="h5">Se alle bedrifter</Typography>
+        <Card
+          className={classes.cards}
+          onClick={() => history.push("/companies")}
+        >
+          <CardContent>
+            <BusinessCenterRounded className={classes.icons} />
+            <Typography variant="h6">
+              Her finner du alle bedrifter som er med på IKT-dagen
+            </Typography>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };

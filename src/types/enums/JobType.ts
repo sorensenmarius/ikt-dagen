@@ -12,6 +12,6 @@ export const getNorwegianJobType = (jobType: JobType): string => {
     1: "Sommerjobb",
     2: "Deltid",
     3: "Fulltid",
-    4: "Graduate Program",
+    4: "Graduate",
   }[jobType];
 };

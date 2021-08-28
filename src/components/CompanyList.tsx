@@ -9,7 +9,6 @@ import {
   MasterStudyProgram,
 } from "../types/enums/StudyProgram";
 import CompanyCard from "./CompanyCard";
-import CompanyFilter from "./CompanyFilter";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -71,7 +70,8 @@ const CompanyList: FC<ICompanyListProps> = ({ filterState }) => {
 
   return (
     <>
-      <CompanyFilter
+      <div style={{ padding: "15px" }}>
+        {/* <CompanyFilter
         jobTypes={jobTypes}
         setJobTypes={setJobTypes}
         levels={levels}
@@ -80,12 +80,13 @@ const CompanyList: FC<ICompanyListProps> = ({ filterState }) => {
         setMasters={setMasters}
         bachelors={bachelors}
         setBachelors={setBachelors}
-      />
-      <List className={classes.root}>
-        {filteredCompanies.map((company) => (
-          <CompanyCard company={company} key={company.name} />
-        ))}
-      </List>
+      /> */}
+        <List className={classes.root}>
+          {filteredCompanies.map((company) => (
+            <CompanyCard company={company} key={company.name} />
+          ))}
+        </List>
+      </div>
     </>
   );
 };

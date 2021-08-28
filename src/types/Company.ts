@@ -20,7 +20,8 @@ export default class Company {
     public jobTypes: JobType[] = [],
     public levels: Level[] = [],
     public bachelorStudyPrograms: BachelorStudyProgram[] = [],
-    public masterStudyPrograms: MasterStudyProgram[] = []
+    public masterStudyPrograms: MasterStudyProgram[] = [],
+    public description: string
   ) {}
 
   static fromSheets(info: string[]): Company {
@@ -33,7 +34,25 @@ export default class Company {
       parseStringToJobTypes(info[5]),
       parseStringToLevels(info[6]),
       parseStringToBachelors(info[7]),
-      parseStringToMasters(info[8])
+      parseStringToMasters(info[8]),
+      info[9]
     );
   }
+
+  hasElectroMaster = this.masterStudyPrograms.includes(
+    MasterStudyProgram.RoboticsAndSignalProcessing
+  );
+  hasDataMaster = this.masterStudyPrograms.some((el) =>
+    [
+      MasterStudyProgram.AppliedDataScience,
+      MasterStudyProgram.ComputerScience,
+      MasterStudyProgram.DataScience,
+    ].includes(el)
+  );
+  hasElectroBachelor = this.bachelorStudyPrograms.includes(
+    BachelorStudyProgram.AutomationAndElectronics
+  );
+  hasDataBachelor = this.bachelorStudyPrograms.includes(
+    BachelorStudyProgram.ComputerScience
+  );
 }

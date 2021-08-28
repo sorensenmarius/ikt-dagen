@@ -1,10 +1,8 @@
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
-  avatar: {
-    margin: "auto",
-    width: "150px",
-    height: "150px",
+  cardContent: {
+    backgroundColor: "#F8F8F8",
   },
 }));
 

@@ -33,15 +33,19 @@ export interface ICompanyFilterState {
 const CompanyList: FC<ICompanyListProps> = ({ filterState }) => {
   const { companies } = useContext(Context);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [jobTypes, setJobTypes] = useState<JobType[]>(
     filterState?.jobTypes ?? []
   );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [levels, setLevels] = useState<Level[]>(
     filterState?.level ? [filterState.level] : []
   );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [masters, setMasters] = useState<MasterStudyProgram[]>(
     filterState?.master ? [filterState.master] : []
   );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [bachelors, setBachelors] = useState<BachelorStudyProgram[]>(
     filterState?.bachelor ? [filterState.bachelor] : []
   );

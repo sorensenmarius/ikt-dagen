@@ -20,7 +20,7 @@ const CompanyCard: FC<ICompanyCardProps> = ({ company }) => {
         style={{ margin: "15px", width: "calc(100% - 30px)" }}
       />
       <CardContent className={classes.cardContent}>
-        <Typography variant="h5">{company.name}</Typography>
+        <Typography variant="h4">{company.name}</Typography>
         <div>
           {company.jobTypes.map((jt) => (
             <SmallChip text={getNorwegianJobType(jt)} />

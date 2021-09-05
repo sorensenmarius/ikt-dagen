@@ -25,7 +25,7 @@ jobs:
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@3.1.1
         with:
-          ftp-server: ftp://ftp.domeneshop.no/ikt-dagen
-          ftp-username: s0rensen
-          ftp-password: ${{ secrets.S0RENSEN_FTP_PASSWORD }}
+          ftp-server: ftp://ftp.iktdagen.no/app
+          ftp-username: iktdagen.no
+          ftp-password: ${{ secrets.PRODUCTION_FTP_PASSWORD }}
           local-dir: build # This folder is NOT going to upload by default unless you add it to .git-ftp-include

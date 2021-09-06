@@ -17,8 +17,26 @@ const DataContext: FC = ({ children }) => {
 
   if (isLoading)
     return (
-      <div>
-        <CircularProgress />
+      <div
+        style={{
+          backgroundColor: "#E5E5E5",
+          width: "100vw",
+          height: "100vh",
+        }}
+      >
+        <div
+          style={{
+            margin: "auto",
+            display: "flex",
+            flexDirection: "column",
+            maxWidth: "800px",
+            alignItems: "center",
+            paddingTop: "15vh",
+          }}
+        >
+          <Typography variant="h3">Henter bedrifter...</Typography>
+          <CircularProgress />
+        </div>
       </div>
     );
 

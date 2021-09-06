@@ -1,5 +1,7 @@
-import { List, makeStyles } from "@material-ui/core";
-import { FC, useContext, useState } from "react";
+import { Fab, List, makeStyles } from "@material-ui/core";
+import { Search } from "@material-ui/icons";
+import { FC, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { Context } from "../services/DataContext";
 import Company from "../types/Company";
 import JobType from "../types/enums/JobType";
@@ -33,22 +35,11 @@ export interface ICompanyFilterState {
 const CompanyList: FC<ICompanyListProps> = ({ filterState }) => {
   const { companies } = useContext(Context);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [jobTypes, setJobTypes] = useState<JobType[]>(
-    filterState?.jobTypes ?? []
-  );
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [levels, setLevels] = useState<Level[]>(
-    filterState?.level ? [filterState.level] : []
-  );
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [masters, setMasters] = useState<MasterStudyProgram[]>(
-    filterState?.master ? [filterState.master] : []
-  );
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [bachelors, setBachelors] = useState<BachelorStudyProgram[]>(
-    filterState?.bachelor ? [filterState.bachelor] : []
-  );
+  const history = useHistory();
+
+  const jobTypes = filterState?.jobTypes ?? [];
+
+  const levels = filterState?.level ? [filterState.level] : [];
 
   const classes = useStyles();
 
@@ -75,16 +66,13 @@ const CompanyList: FC<ICompanyListProps> = ({ filterState }) => {
   return (
     <>
       <div style={{ padding: "15px" }}>
-        {/* <CompanyFilter
-        jobTypes={jobTypes}
-        setJobTypes={setJobTypes}
-        levels={levels}
-        setLevels={setLevels}
-        masters={masters}
-        setMasters={setMasters}
-        bachelors={bachelors}
-        setBachelors={setBachelors}
-      /> */}
+        <Fab
+          color="secondary"
+          style={{ position: "fixed", bottom: 5, right: 5, zIndex: 1 }}
+          onClick={() => history.push("/about-you")}
+        >
+          <Search />
+        </Fab>
         <List className={classes.root}>
           {filteredCompanies.map((company) => (
             <CompanyCard company={company} key={company.name} />

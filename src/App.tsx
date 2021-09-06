@@ -20,11 +20,13 @@ function App() {
             backgroundColor: "#E5E5E5",
           }}
         >
-          <Switch>
-            <Route path="/companies" component={Companies} />
-            <Route path="/about-you" component={AboutYou} />
-            <Route path="/" component={LandingPage} />
-          </Switch>
+          <div style={{ margin: "auto", maxWidth: "800px" }}>
+            <Switch>
+              <Route path="/companies" component={Companies} />
+              <Route path="/about-you" component={AboutYou} />
+              <Route path="/" component={LandingPage} />
+            </Switch>
+          </div>
         </div>
       </BrowserRouter>
     </ThemeProvider>

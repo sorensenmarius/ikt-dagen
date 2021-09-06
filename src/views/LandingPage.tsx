@@ -42,6 +42,12 @@ const LandingPage = () => {
 
   return (
     <div className={classes.root}>
+      <Button
+        color="secondary"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf-4QWhRbpErW7XoeWidn4yrlqH4WVj09PLsjO8TAxPyogW_w/viewform"
+      >
+        <Typography variant="h5">Smittesporing</Typography>
+      </Button>
       <div className={classes.cardWrappers}>
         <Typography variant="h5">Finn bedrifter for deg</Typography>
         <Card
@@ -70,12 +76,6 @@ const LandingPage = () => {
           </CardContent>
         </Card>
       </div>
-      <Button
-        color="secondary"
-        href="https://docs.google.com/forms/d/e/1FAIpQLSf-4QWhRbpErW7XoeWidn4yrlqH4WVj09PLsjO8TAxPyogW_w/viewform"
-      >
-        <Typography variant="h5">Registrer deg for smittesporing</Typography>
-      </Button>
     </div>
   );
 };

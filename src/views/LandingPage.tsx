@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     justifyContent: "center",
     padding: "20px 40px",
-    gap: "60px",
+    gap: "15px",
   },
   cardWrappers: {
     display: "flex",
@@ -45,8 +45,16 @@ const LandingPage = () => {
       <Button
         color="secondary"
         href="https://docs.google.com/forms/d/e/1FAIpQLSf-4QWhRbpErW7XoeWidn4yrlqH4WVj09PLsjO8TAxPyogW_w/viewform"
+        target="_blank"
       >
         <Typography variant="h5">Smittesporing</Typography>
+      </Button>
+      <Button
+        color="secondary"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSfAR6rnZSDduR40ADNXguqeOsmz1S84pgcBDvGzvXXjfX56mA/viewform"
+        target="_blank"
+      >
+        <Typography variant="h5">Quiz</Typography>
       </Button>
       <div className={classes.cardWrappers}>
         <Typography variant="h5">Finn bedrifter for deg</Typography>
